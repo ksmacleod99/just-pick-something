@@ -1,13 +1,24 @@
 <template>
-    <div class="container" :recipe="recipe">
+    <div class="container" ref="recipe">
         <div class="masthead">
-            <h1>hello</h1>
             <h2> {{ recipe.name }} </h2>
         </div>  
         <div class="meta">
             <p>Meal: {{ recipe.meta[0].meal }}</p>
             <p>Meat: {{ recipe.meta[0].meat}}</p>
-            <p> test </p>
+            <p>Course: {{ recipe.meta[0].course }} </p>
+            <p>Spicy: {{ recipe.meta[0].spicy }}</p>
+            <p>Raiting: {{ recipe.meta[0].rating }}</p>
+        </div>
+        <div class="ingredients">
+            <ul>
+                <li :for="(quantity, name, index) in recipe.ingredients"> {{ quantity }} {{ name }} </li>
+            </ul>
+        </div>
+        <div class="steps">
+            <ol>
+                <li :for="step in recipe.steps"> {{ recipe.steps }} </li>
+            </ol>
         </div>
     </div>
 </template>
@@ -21,12 +32,12 @@ export default {
         }
     },
     methods: {
-
         async getRecipe() {
             let id = this.$route.params.id;
-           const res = await fetch(`/api/recipes/${id}`);
+            const res = await fetch(`/api/recipes/${id}`);
             const recipe = await res.json();
             return recipe;
+            //console.log(recipe.ingredients[0].name)
         }
     },
       async created() {
