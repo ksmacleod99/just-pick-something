@@ -1,12 +1,12 @@
 <template>
-    <div class="container">
+    <div class="container" :recipe="recipe">
         <div class="masthead">
             <h1>hello</h1>
             <h2> {{ recipe.name }} </h2>
         </div>  
         <div class="meta">
-            <p>Meal: {{ recipe.meal }}</p>
-            <p>Meat: {{ recipe.meat}}</p>
+            <p>Meal: {{ recipe.meta[0].meal }}</p>
+            <p>Meat: {{ recipe.meta[0].meat}}</p>
             <p> test </p>
         </div>
     </div>
@@ -17,21 +17,21 @@ export default {
     name: "Recipe",
     data() {
         return {
-            recipe: Object
+            recipe: {},
         }
     },
     methods: {
+
         async getRecipe() {
-            const id = this.router;
-            const res = await fetch(`api/recipes/${id}`);
-            const data = await res.json();
-            return data;
-        },
+            let id = this.$route.params.id;
+           const res = await fetch(`/api/recipes/${id}`);
+            const recipe = await res.json();
+            return recipe;
+        }
     },
       async created() {
         this.recipe = await this.getRecipe();
-        this.name = this.recipe.name;
-    },
+    }, 
 }
 </script>
 
@@ -39,5 +39,6 @@ export default {
     .container {
         margin: 1em;
         border: 1px red solid;
+        padding: 1em; 
     }
 </style>
