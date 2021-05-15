@@ -12,12 +12,12 @@
         </div>
         <div class="ingredients">
             <ul>
-                <li :for="(quantity, name, index) in recipe.ingredients"> {{ quantity }} {{ name }} </li>
+                <li :for="value in recipe.ingredients"> {{index}} {{ quantity }} {{ name }} </li>
             </ul>
         </div>
         <div class="steps">
             <ol>
-                <li :for="step in recipe.steps"> {{ recipe.steps }} </li>
+                <li :for="step in recipe.steps" :key="recipe.step"> {{ recipe.step }} </li>
             </ol>
         </div>
     </div>
@@ -37,7 +37,6 @@ export default {
             const res = await fetch(`/api/recipes/${id}`);
             const recipe = await res.json();
             return recipe;
-            //console.log(recipe.ingredients[0].name)
         }
     },
       async created() {

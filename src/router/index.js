@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Recipe from '../views/Recipe.vue'
+import Cookbook from '../views/Cookbook.vue'
 
 const routes = [
   {
@@ -13,7 +14,12 @@ const routes = [
     name: 'recipe',
     component: Recipe,
     props: true
-  }
+  },
+  {
+    path: '/cookbook',
+    name: 'cookbook',
+    component: Cookbook
+ }
 ]
 
 const router = createRouter({
