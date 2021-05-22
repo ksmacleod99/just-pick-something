@@ -12,5 +12,9 @@ module.exports = {
 
   pwa: {
     name: 'Just Pick Something'
-  }
+  },
+
+  transpileDependencies: [
+    'vuetify'
+  ]
 };

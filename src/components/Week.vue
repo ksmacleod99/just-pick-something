@@ -1,24 +1,24 @@
 <template>
-    <div class="weekBox">
+    <v-sheet>
         <h2>This Week</h2>
-        <h3>Week Of:</h3>
-        <p>Breakfast</p>
-        <p>Lunch</p>
-        <p>Dinner</p>
-        <p>Edit</p>
-    </div>
+        <h3>Week Of:</h3> <p> {{plan.id}} </p>
+        <p>Breakfast:</p> {{ plan.monday.breakfast.value}}
+        <p>Lunch:</p>
+        <p>Dinner:</p>
+        <p>Edit:</p>
+    </v-sheet>
 </template>
 
 <script>
 export default{
-    name: 'Week'
+    name: "Week",
+    props: {
+        plan: Object
+    },
+    methods: {
+        //
+    }
 }
 </script>
 
 
-<style scoped>
-.weekBox {
-    border: 2px goldenrod solid;
-    box-shadow: indigo;
-}
-</style>

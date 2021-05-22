@@ -1,16 +1,15 @@
 <template>
-  <div class="container">
+  <v-container>
          <RecipeCard
             v-for="recipe in recipes"
             :recipe="recipe"
             :key="recipe.id"
         />
-  </div>
+  </v-container>
 </template>
 
 <script>
 import RecipeCard from "../components/RecipeCard";
-
 export default {
   name: 'Cookbook',
   components: {
@@ -22,11 +21,6 @@ export default {
     };
   },
   methods: {
-    /*async fetchRecipe(id) {
-      const res = await fetch(`api/recipes/${id}`);
-      const recipes = await res.json();
-      return recipes;
-    }, */
       async fetchRecipeList() {
       const res = await fetch("api/recipes");
       const recipes = await res.json();

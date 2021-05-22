@@ -1,8 +1,12 @@
 <template>
-    <div class="home">
+    <v-container>
         <h2>Hello World</h2>
-        <Week/>
-    </div>
+        <Week
+          v-for="plan in plans"
+          :plan = "plan"
+          :key="plan.id"
+        />
+    </v-container>
 </template>
 
 <script>
@@ -10,17 +14,25 @@ import Week from "../components/Week";
 
 export default{
     name: 'Home',
+    data() {
+      return {
+       plans: []
+      }
+    },
     components: {
         Week
     },
+    methods: {
+      async fetchPlans() {
+       const res = await fetch("api/plans");
+       const plans = await res.json();
+       return plans;
+      },
+    },
+  async created() {
+    this.plans = await this.fetchPlans();
+  }
 }
 </script>
 
 
-<style scoped>
-.home {
-    margin: 1em;
-    padding: 1em;
-    border: 1px solid hotpink;
-}
-</style>

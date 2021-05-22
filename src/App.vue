@@ -1,33 +1,26 @@
 <template>
-  <Header />
-  <div>
-    <router-view/>
-  </div>
+  <v-app>
+  <v-app-bar>
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+
+      <v-toolbar-title> Just Pick Something </v-toolbar-title>
+
+    </v-app-bar>
+    <v-main>
+      <router-view/>
+    </v-main>
+  </v-app>
 
 </template>
 
+
 <script>
-import Header from "./components/Header";
+
 export default {
-  name: "App",
-  components: {
-    Header
-  }
+  name: 'App',
+
+  data: () => ({
+    //
+  }),
 }
 </script>
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  background-color: whitesmoke;
-}
-
-</style>

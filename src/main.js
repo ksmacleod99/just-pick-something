@@ -1,13 +1,12 @@
-import {createApp} from 'vue'
+import { createApp } from 'vue'
+import vuetify from './plugins/vuetify'
 import App from './App.vue'
-import './registerServiceWorker'
 import router from './router'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
 
 
-//createApp(App).use(router).mount('#app')
+const app = createApp(App)
 
-const app = createApp(App);
-app.use(router);
-app.mount('#app');
+app.use(router)
+app.use(vuetify)
+
+app.mount('#app')
