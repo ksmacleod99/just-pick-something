@@ -1,12 +1,11 @@
 <template>
-    <v-container>
         <h2>Hello World</h2>
         <Week
           v-for="plan in plans"
           :plan = "plan"
           :key="plan.id"
         />
-    </v-container>
+
 </template>
 
 <script>

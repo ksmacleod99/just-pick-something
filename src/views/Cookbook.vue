@@ -1,10 +1,12 @@
 <template>
-  <v-container>
-         <RecipeCard
-            v-for="recipe in recipes"
-            :recipe="recipe"
-            :key="recipe.id"
-        />
+  <v-container class="d.flex" tile>
+    <div class="container">
+          <RecipeCard
+              v-for="recipe in recipes"
+              :recipe="recipe"
+              :key="recipe.id"
+          />
+    </div>
   </v-container>
 </template>
 
@@ -37,8 +39,8 @@ export default {
 .container {
   display: flex;
   flex-flow: row wrap;
-  padding: 1em;
-  margin: 1em;
-  border: 2px solid green;
+  padding: .25em;
+  margin: .25em;
+
 }
 </style>

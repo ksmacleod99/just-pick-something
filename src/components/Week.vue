@@ -1,11 +1,17 @@
 <template>
-    <v-sheet>
-        <h2>This Week</h2>
-        <h3>Week Of:</h3> <p> {{plan.id}} </p>
-        <p>Breakfast:</p> {{ plan.monday.breakfast.value}}
-        <p>Lunch:</p>
-        <p>Dinner:</p>
-        <p>Edit:</p>
+    <v-sheet
+        color= "white"
+        elevation="1"
+    >
+        <div class="cal">
+
+            <h2>This Week</h2>
+            <p class="weekOf">Week Of {{plan.id}} </p>
+            <p>Breakfast: <span>{{ plan.monday.breakfast}}</span></p> 
+            <p>Lunch:</p>
+            <p>Dinner:</p>
+            <p>Edit:</p>
+    </div>
     </v-sheet>
 </template>
 
@@ -20,5 +26,16 @@ export default{
     }
 }
 </script>
+
+<style scoped>
+.cal {
+    padding: 1em;
+    margin: 1em;
+}
+.weekOf{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+</style>
 
 

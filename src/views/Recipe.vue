@@ -1,5 +1,5 @@
 <template>
-    <div class="container" ref="recipe">
+    <div class="container">
         <div class="masthead">
             <h2> {{ recipe.name }} </h2>
         </div>  
@@ -21,6 +21,7 @@
             </ol>
         </div>
     </div>
+
 </template>
 
 <script>
