@@ -16,7 +16,24 @@
                     "dinner": 2,
                     "side": 3
                 }
-        }
+        },
+        {
+            "id": 20210524,
+            "monday": 
+                {
+                    "breakfast": "test",
+                    "lunch": 2,
+                    "dinner": 3,
+                    "side": 4
+                },   
+            "tuesday":
+                {
+                    "breakfast": 5,
+                    "lunch": 1,
+                    "dinner": 2,
+                    "side": 3
+                }
+        }        
     ],
     "recipes": [
     {

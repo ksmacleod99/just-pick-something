@@ -1,10 +1,13 @@
 <template>
-        <h2>Hello World</h2>
+  <div class="container">
         <Week
           v-for="plan in plans"
           :plan = "plan"
+          :recipe = "recipe"
           :key="plan.id"
         />
+  </div>
+
 
 </template>
 
@@ -35,3 +38,12 @@ export default{
 </script>
 
 
+<style scoped>
+.container {
+  margin: 1em;
+  padding: 1em;
+  display: grid;
+  grid-gap: 1em;
+  align-items: center;
+}
+</style>

@@ -1,9 +1,9 @@
 <template>
   <v-app>
-  <v-app-bar>
+  <v-app-bar color="#5ECC65">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title> Just Pick Something </v-toolbar-title>
+      <v-app-bar-title> Just Pick Something </v-app-bar-title>
 
     </v-app-bar>
     <v-navigation-drawer
@@ -11,35 +11,16 @@
         absolute
         temporary
       >
-        <v-list flat>
-          <v-list-item-group>
-
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>
+      <ul class="nav">
+        <li>
                 <router-link to="/">Home</router-link>
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>
-                Calendar
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>
+        </li>
+        <li> Calendar </li>
+        <li>
                 <router-link to="/cookbook">Cookbook</router-link>
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
+        </li>
+      </ul>
 
-          </v-list-item-group>
-      </v-list>
     </v-navigation-drawer>
 
     <v-main>
@@ -64,3 +45,24 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.nav{
+  padding: 10px;
+  list-style: none;
+}
+.nav li {
+  padding: 5px;
+  margin: 15px;
+  font-weight: bold;
+  border-bottom: 1px lightgray solid
+}
+
+</style>
+<style>
+a {
+  color: #314E55;
+  text-decoration: underline;
+  font-weight: bold;
+}
+</style>
