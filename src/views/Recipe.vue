@@ -58,6 +58,12 @@ export default {
             const res = await fetch(`/api/recipes/${id}`);
             const recipe = await res.json();
             return recipe;
+        },
+        getIngredients(){
+            const ingredients = this.recipe.id;
+
+            console.log(this.recipe.id + ingredients)
+            // for ( var key of ingredients )
         }
     },
       async created() {

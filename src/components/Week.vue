@@ -15,14 +15,17 @@
                 </div>
 
                 <div class="flex">
-                 <div class="day">
-                    <p>Breakfast: <span>{{ plan.monday.breakfast}}</span></p> 
+                 <div 
+                 v-for="day in plan" 
+                 :day="day" 
+                 :key="day" 
+                 class="day">
+                    <p>Breakfast: <span>{{ day.breakfast }}</span></p> 
                     <p>Lunch:</p>
                     <p>Dinner:</p>
                  </div>
-                </div>
-
             </div>
+         </div>
         </v-sheet>
     </div>
 
@@ -40,7 +43,10 @@ export default{
         plan: Object,
     },
     methods: {
-        //
+        setId() {
+            //
+        },
+        
     }
 }
 </script>
@@ -48,7 +54,7 @@ export default{
 <style scoped>
 .container {
     margin: auto;
-    width: 70%;
+    width: 80%;
 }
 .inside { 
     margin: 1em;
@@ -62,6 +68,7 @@ export default{
 }
 .controls{
     width: 20%;
+    align-items: right;
 }
 .day {
     width: 14%;

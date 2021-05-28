@@ -9060,7 +9060,7 @@ vue@^3.0.0:
     "@vue/runtime-dom" "3.0.11"
     "@vue/shared" "3.0.11"
 
-vuetify@^3.0.0:
+vuetify@^3.0.0-alpha.4:
   version "3.0.0-alpha.4"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.0.0-alpha.4.tgz#dd4bf73ec9333e056b416477a0cc29026cad977d"
   integrity sha512-hlI4Lnx676/3wSg687a4uMnc+/wg5Qey/6o+om2B2+9/c30JqjDL9Y2icHUKtsPNzL6gmOnK+ZU5rm9+PZ4Aqg==
