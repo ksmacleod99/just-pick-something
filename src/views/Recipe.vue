@@ -27,7 +27,7 @@
         </div>
         <div class="ingredients">
             <ul>
-                <li :for="value in recipe.ingredients"> {{index}} {{ quantity }} {{ name }} </li>
+                <li v-for="ingredient in recipe.ingredients" :key="ingredient"> {{ ingredient.quantity }} {{ ingredient.name }} </li>
             </ul>
         </div>
         <div class="steps">
