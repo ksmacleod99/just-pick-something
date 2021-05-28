@@ -32,7 +32,7 @@
         </div>
         <div class="steps">
             <ol>
-                <li :for="step in recipe.steps" :key="recipe.step"> {{ recipe.step }} </li>
+                <li v-for="step in recipe.steps" :key="step"> {{ step }} </li>
             </ol>
         </div>
     </div>
@@ -59,12 +59,12 @@ export default {
             const recipe = await res.json();
             return recipe;
         },
-        getIngredients(){
+        /* getIngredients(){
             const ingredients = this.recipe.id;
 
             console.log(this.recipe.id + ingredients)
             // for ( var key of ingredients )
-        }
+        } */
     },
       async created() {
         this.recipe = await this.getRecipe();
