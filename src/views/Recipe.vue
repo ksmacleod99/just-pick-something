@@ -5,7 +5,8 @@
                <img :src="recipe.imageURL"/>
             </div>
             <h2> {{ recipe.name }} </h2>
-        </div>  
+        </div> 
+
         <div class="meta">
             <div class="metabox">
                 <p>Meal: {{ recipe.meta[0].meal }}</p>
@@ -19,12 +20,10 @@
             </div>
            <div class="metabox">
                <EditButton /> 
-
                 <p>Add To Plan</p>
            </div>
-
-
         </div>
+
         <div class="ingredients">
             <ul>
                 <li v-for="ingredient in recipe.ingredients" :key="ingredient"> {{ ingredient.quantity }} {{ ingredient.name }} </li>
@@ -35,6 +34,7 @@
                 <li v-for="step in recipe.steps" :key="step"> {{ step }} </li>
             </ol>
         </div>
+
     </div>
 
 </template>
@@ -59,12 +59,6 @@ export default {
             const recipe = await res.json();
             return recipe;
         },
-        /* getIngredients(){
-            const ingredients = this.recipe.id;
-
-            console.log(this.recipe.id + ingredients)
-            // for ( var key of ingredients )
-        } */
     },
       async created() {
         this.recipe = await this.getRecipe();
@@ -81,10 +75,20 @@ export default {
         padding: 1em; 
         max-width: 70%;
     }
-    .masthead, .ingredients, .steps {
+    .masthead {
         border: 1px lightgray solid;
         width: 100%;
         padding: 1em;
+    }
+    .ingredients, .steps {
+        border: 1px lightgray solid;
+        width: 100%;
+        padding: 10px;
+    }
+    ol, ul{
+        width: 100%;
+        margin: 5px;
+        padding: 10px;
     }
     .meta {
         width: 100%;

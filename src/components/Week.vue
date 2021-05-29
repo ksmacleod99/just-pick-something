@@ -16,13 +16,13 @@
 
                 <div class="flex">
                  <div 
-                 v-for="day in plan" 
-                 :day="day" 
+                 v-for="day in plan.day" 
+                 :plan="day" 
                  :key="day" 
                  class="day">
                     <p>Breakfast: <span>{{ day.breakfast }}</span></p> 
-                    <p>Lunch:</p>
-                    <p>Dinner:</p>
+                    <p>Lunch: <span>{{ day.lunch }}</span></p>
+                    <p>Dinner: <span>{{ day.dinner}}</span></p>
                  </div>
             </div>
          </div>
@@ -40,14 +40,15 @@ export default{
         EditButton
     },
     props: {
-        plan: Object,
+        plan: Object
     },
     methods: {
         setId() {
-            //
+        //
         },
         
-    }
+    },
+
 }
 </script>
 

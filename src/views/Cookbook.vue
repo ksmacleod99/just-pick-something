@@ -1,5 +1,5 @@
 <template>
-  <v-container class="d.flex" tile>
+
     <div class="container">
           <RecipeCard
               v-for="recipe in recipes"
@@ -7,7 +7,7 @@
               :key="recipe.id"
           />
     </div>
-  </v-container>
+
 </template>
 
 <script>

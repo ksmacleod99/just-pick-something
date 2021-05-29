@@ -1,34 +1,34 @@
 <template>
   <v-app>
+
+
+
   <v-app-bar color="#5ECC65">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-
       <v-app-bar-title> Just Pick Something </v-app-bar-title>
+  </v-app-bar>
+  <v-navigation-drawer
+  v-model="drawer"
+  absolute
+  temporary
+    >
+    <ul class="nav">
+      <li>
+        <router-link to="/">Home</router-link>
+      </li>
+      <li> Calendar </li>
+      <li>
+        <router-link to="/cookbook">Cookbook</router-link>
+      </li>
+    </ul>
+  </v-navigation-drawer>
 
-    </v-app-bar>
-    <v-navigation-drawer
-        v-model="drawer"
-        absolute
-        temporary
-      >
-      <ul class="nav">
-        <li>
-                <router-link to="/">Home</router-link>
-        </li>
-        <li> Calendar </li>
-        <li>
-                <router-link to="/cookbook">Cookbook</router-link>
-        </li>
-      </ul>
-
-    </v-navigation-drawer>
-
-    <v-main>
+    <v-main relative>
       <v-container fluid>
          <router-view/>
       </v-container>
-
     </v-main>
+
   </v-app>
 
 </template>
@@ -58,11 +58,4 @@ export default {
   border-bottom: 1px lightgray solid
 }
 
-</style>
-<style>
-a {
-  color: #314E55;
-  text-decoration: underline;
-  font-weight: bold;
-}
 </style>

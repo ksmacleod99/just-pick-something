@@ -3,7 +3,6 @@
         <Week
           v-for="plan in plans"
           :plan = "plan"
-          :recipe = "recipe"
           :key="plan.id"
         />
   </div>
