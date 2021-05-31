@@ -4,6 +4,11 @@ Meal planning app, made for learning all the Vue things but also meal planning.
 The inspiration behind this app is how easy it is to engage my spouse in meal planning with the Home Chef app. Stuff like that helps him help me. As I thought about it, I think this app could be useful for folks who are non-verbal, or maybe just digest information better with pictures than text.
 
 
+## Current State
+- If I "save" the recipe from the recipe view, it overwrites the DB (good), but it rewrites the entire object, removing properties that were not edited (bad). **This causes rendering issues anywhere the recipes endpoint is used.**
+- add recipe view started. Needs more styling and functionality. 
+- considering moving recipe.meta another level higher so it isn't a pita to map to.
+
 ## Note on Styles
 Uses Vuetify 3, which is is alpha, as well as hand-rolled styles. Will refactor for Vuetify components as they are released. 
 
