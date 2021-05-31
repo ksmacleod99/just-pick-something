@@ -1,5 +1,6 @@
 <template>
-  <div class="top">
+  <div>
+    <div class="top">
     <router-link to="/add_recipe">
       <v-btn
         class="ma-2"
@@ -19,6 +20,7 @@
             :key="recipe.id"
         />
   </div>
+  </div>  
 </template>
 
 <script>
@@ -31,7 +33,7 @@ export default {
   data() {
     return {
       recipes: []
-    };
+    }
   },
   methods: {
       async fetchRecipeList() {
@@ -43,7 +45,7 @@ export default {
   async created() {
     this.recipes = await this.fetchRecipeList();
   }
-};
+}
 </script>
 
 <style scoped>
