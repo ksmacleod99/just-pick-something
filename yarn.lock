@@ -9044,6 +9044,11 @@ vue-cli-plugin-vuetify@~2.4.0:
     semver "^7.1.2"
     shelljs "^0.8.3"
 
+vue-contenteditable@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/vue-contenteditable/-/vue-contenteditable-3.0.4.tgz#963b217045e7c574f89503943a024d486491e865"
+  integrity sha512-CmtqT4zHQwLoJEyNVaXUjjUFPUVYlXXBHfSbRCHCUjODMqrn6L293LM1nc1ELx8epitZZvecTfIqOLlSzB3d+w==
+
 vue-eslint-parser@^7.6.0:
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.6.0.tgz#01ea1a2932f581ff244336565d712801f8f72561"

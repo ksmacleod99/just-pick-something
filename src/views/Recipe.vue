@@ -1,17 +1,18 @@
 <template>
     <div class="container">
+        <form @submit="onSubmit">
         <div class="masthead">
             <div class="image">
                <img :src="recipe.imageURL"/>
             </div>
-            <h2> {{ recipe.name }} </h2>
+            <contenteditable tag="h2" :contenteditable="editing" v-model="recipe.name" v-bind:class="{ editing:editing}"> {{recipe.name}}</contenteditable>
         </div> 
 
         <div class="meta">
-            <div class="metabox">
-                <p>Meal: {{ recipe.meta[0].meal }}</p>
-                <p>Meat: {{ recipe.meta[0].meat}}</p>
-                <p>Course: {{ recipe.meta[0].course }} </p>
+            <div class="metabox" >
+                <p>Meal: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.meta[0].meal}} </span></p>
+                <p>Meat: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.meta[0].meat}} </span></p>
+                <p>Course: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.meta[0].course}} </span> </p>
             </div>
             <div class="metabox">
                 <p>Spicy: {{ recipe.meta[0].spicy }}</p>
@@ -19,7 +20,16 @@
                 <p>Calories:</p>
             </div>
            <div class="metabox">
-               <EditButton /> 
+               <EditButton @click="startEdit" v-if="!editing"/> 
+            <v-btn
+                class="ma-2"
+                color="#5ECC65"
+                @click="saveEdit"
+                v-if="editing"
+            >
+                Save
+                <v-icon dense right >mdi-content-save</v-icon>
+            </v-btn>
                 <p>Add To Plan</p>
            </div>
         </div>
@@ -34,22 +44,25 @@
                 <li v-for="step in recipe.steps" :key="step"> {{ step }} </li>
             </ol>
         </div>
-
+        </form>
     </div>
 
 </template>
 
 <script>
 import EditButton from "../components/EditButton";
+ import contenteditable from 'vue-contenteditable';
 
 export default {
     name: "Recipe",
     components: {
-        EditButton
+        EditButton,
+        contenteditable
     },
     data() {
         return {
             recipe: {},
+            editing: false,
         }
     },
     methods: {
@@ -59,6 +72,37 @@ export default {
             const recipe = await res.json();
             return recipe;
         },
+        startEdit(e) {
+            e.preventDefault()
+            this.editing = !this.editing //makes the elements inside of cntenteditable components editable
+            console.log("can edit")
+        },
+        async saveEdit(e) {
+            e.preventDefault()
+            this.editing = !this.editing // makes the elements inside of contenteditable components readonly
+            let id = this.$route.params.id;
+            let recipe = this.recipe
+            const updRecipe = {
+                name: recipe.name
+                }
+           console.log(updRecipe);
+
+          const res = await fetch(`../api/recipes/${id}`, {
+                method: 'PUT',
+                headers: {
+                'Content-type': 'application/json',
+                },
+                body: JSON.stringify(updRecipe),
+            })
+
+            const data = await res.json()
+
+            this.recipe = this.recipe.map((recipe) =>
+            recipe.id === id ? { ...recipe, name: data.name } : recipe
+           // if recipe.id equals the id above, then , else recipe
+            ) 
+            console.log("edit done")
+        }
     },
       async created() {
         this.recipe = await this.getRecipe();
@@ -106,5 +150,8 @@ export default {
         height: 200px;
         margin: auto;
         padding: auto;
+    }
+    .editing {
+        border-bottom: 1px solid #314E55;
     }
 </style>

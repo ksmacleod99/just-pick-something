@@ -1,9 +1,6 @@
 <template>
   <v-app>
-
-
-
-  <v-app-bar color="#5ECC65">
+ <v-app-bar color="#5ECC65">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title> Just Pick Something </v-app-bar-title>
   </v-app-bar>

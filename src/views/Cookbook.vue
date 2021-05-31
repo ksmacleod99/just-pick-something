@@ -1,13 +1,24 @@
 <template>
+  <div class="top">
+    <router-link to="/add_recipe">
+      <v-btn
+        class="ma-2"
+        color="#5ECC65"
+      >
+       Add Recipe
+       <v-icon dense right>mdi-plus</v-icon>
+     </v-btn>
+    </router-link>
 
-    <div class="container">
-          <RecipeCard
-              v-for="recipe in recipes"
-              :recipe="recipe"
-              :key="recipe.id"
-          />
-    </div>
+  </div>
 
+  <div class="container">
+        <RecipeCard
+            v-for="recipe in recipes"
+            :recipe="recipe"
+            :key="recipe.id"
+        />
+  </div>
 </template>
 
 <script>
@@ -42,5 +53,9 @@ export default {
   padding: .25em;
   margin: .25em;
 
+}
+.top {
+  margin: 1em;
+  padding: 10px;
 }
 </style>
