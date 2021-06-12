@@ -5,9 +5,9 @@ The inspiration behind this app is how easy it is to engage my spouse in meal pl
 
 
 ## Current State
-- If I "save" the recipe from the recipe view, it overwrites the DB (good), but it rewrites the entire object, removing properties that were not edited (bad). **This causes rendering issues anywhere the recipes endpoint is used.**
-- add recipe view started. Needs more styling and functionality. 
-- considering moving recipe.meta another level higher so it isn't a pita to map to.
+- using Cosmic.js for CMS
+- stuck: unsure if Vuex, Cosmic JS, or me. 
+- Cosmic returns 'undefined' in cosmic-cli when I try to target my bucket slug
 
 ## Note on Styles
 Uses Vuetify 3, which is is alpha, as well as hand-rolled styles. Will refactor for Vuetify components as they are released. 
