@@ -71,25 +71,48 @@
             </v-btn>
                 <p>Add To Plan</p>
            </div>
+
         </div>
-        </form>
-    </div>
+        <div class="ingredients">
+            <v-btn
+                icon="mdi-plus"
+                color="#5ECC65"
+                @click="AddIngredient()"
+            ></v-btn>
+            Add Ingredient
+            <div>
+                <div v-for="index in count" :key="index" @remove="ing.splice(index, 1)">
+                    <AddIngredient />
+                </div>
+            </div>
+
+            
+        </div>
+    </form>    
+</div>
 
 </template>
 
 <script>
+import AddIngredient from "../components/AddIngredient"
 
 export default {
     name: "AddRecipe",
     components: {
-        //
+        AddIngredient
     },
     data() {
         return {
-          //
+          count: 3
         }
     },
     methods: {
+        AddIngredient(){
+            this.count.push({
+            id: this.count++,
+        })
+            console.log(this.count)
+        }
        
        
     },
@@ -138,7 +161,7 @@ export default {
         padding: auto;
     }
     input {
-        border-bottom: 1px solid #314E55;
+        border: 1px solid #314E55;
     }
     select {
         border: 1px solid #314e55;

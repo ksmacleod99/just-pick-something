@@ -3,14 +3,14 @@
         <form @submit="onSubmit">
         <div class="masthead">
             <div class="image">
-               <img :src="recipe.imageURL"/>
+               <img :src="recipe.metadata.image"/>
             </div>
-            <contenteditable tag="h2" :contenteditable="editing" v-model="recipe.name" v-bind:class="{ editing:editing}"> {{recipe.name}}</contenteditable>
+            <contenteditable tag="h2" :contenteditable="editing" v-model="recipe.name" v-bind:class="{ editing:editing}"> {{recipe.title}}</contenteditable>
         </div> 
 
         <div class="meta">
             <div class="metabox" >
-                <p>Meal: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.meta[0].meal}} </span></p>
+                <p>Meal: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.metadata.meal}} </span></p>
                 <p>Meat: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.meta[0].meat}} </span></p>
                 <p>Course: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.meta[0].course}} </span> </p>
             </div>
@@ -50,8 +50,9 @@
 </template>
 
 <script>
+import cosmic from '@/plugins/cosmic'
 import EditButton from "../components/EditButton";
- import contenteditable from 'vue-contenteditable';
+import contenteditable from 'vue-contenteditable';
 
 export default {
     name: "Recipe",
@@ -61,14 +62,15 @@ export default {
     },
     data() {
         return {
-            recipe: {},
+            recipe: Object,
             editing: false,
         }
     },
     methods: {
-        async getRecipe() {
-            let id = this.$route.params.id;
-            const res = await fetch(`/api/recipes/${id}`);
+
+        /*async getRecipe() {
+            let slug = this.$route.params.slug;
+            const res = await fetch(`${slug}`);
             const recipe = await res.json();
             return recipe;
         },
@@ -102,10 +104,10 @@ export default {
            // if recipe.id equals the id above, then , else recipe
             ) 
             console.log("edit done")
-        }
+        } */
     },
       async created() {
-        this.recipe = await this.getRecipe();
+        this.recipe = await cosmic.getObject(this.$oute.params.id);
     }, 
 }
 </script>

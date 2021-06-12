@@ -23,28 +23,33 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
+import { computed } from 'vue'
 import RecipeCard from "../components/RecipeCard";
+
+
 export default {
   name: 'Cookbook',
   components: {
     RecipeCard
   },
+  setup() {
+    const { state } = useStore()
+    const isLoading = computed(() => state.cosmic.loading)
+    const recipes = computed(() => state.cosmic.list)
+    //return {recipes, isLoading}
+    console.log(isLoading, recipes)
+  },
   data() {
     return {
-      recipes: []
+      //
     }
   },
-  methods: {
-      async fetchRecipeList() {
-      const res = await fetch("api/recipes");
-      const recipes = await res.json();
-      return recipes;
-    },
-  },
-  async created() {
-    this.recipes = await this.fetchRecipeList();
+  computed: {
+    //
   }
 }
+
 </script>
 
 <style scoped>

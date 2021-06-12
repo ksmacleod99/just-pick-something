@@ -1,15 +1,15 @@
 <template>
     <router-link :to="`/recipes/${recipe.id}`">
-        <div class="wrapper">
-            <div class="image">
-                <img :src="recipe.imageURL">
-            </div>
-            <div class="info">
-                <h3> {{ recipe.name }} </h3>
-                <p> {{recipe.meta[0].course}}</p>
-                <p> {{recipe.meta[0].meal}}</p>
-            </div>
-    </div>
+        <v-card>
+            <v-card-img>
+                <v-img :src="recipe.metadata.image" />
+            </v-card-img>
+            <v-card-title> {{ recipe.title }} </v-card-title>
+            <p> {{recipe.metadata.course}}</p>
+            <p> {{recipe.metadata.meal.value}}</p>
+            <p>Servings: {{ recipe.metadata.servings}} </p>
+            <p> {{recipe.id}} </p>
+        </v-card>
     
     </router-link>
 
