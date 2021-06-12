@@ -33,12 +33,21 @@
 
 <script>
 import { useStore } from 'vuex'
+import { computed } from 'vue'
+
 export default {
   name: 'App',
   setup() {
     const store = useStore()
-    store.dispatch('cosmic/importData')
+    const recipes = computed(() => store.state.all)
+    store.dispatch('cosmic/getAllRecipes');
+
+    //return recipes
+    console.log ("I am on app dawt vue and" + recipes.value)
   },
+         watch: {
+            page: 'getAllRecipes'
+        },
   data(){
     return {
     drawer: false,

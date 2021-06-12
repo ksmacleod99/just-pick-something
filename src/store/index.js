@@ -4,7 +4,7 @@ import bucket from '../plugins/cosmic'
 const cosmic = {
    namespaced: true,
    state: {
-      list: [],
+      all: [],
       loading: false
    },
    mutations: {
@@ -12,31 +12,21 @@ const cosmic = {
          state.list.unshift(recipes)
       },
       set(state, recipes){
-         state.list = recipes
+         state.all = recipes
       },
       setLoading(state, loading){  //update loading status
          state.loading=loading
       }
    },
    actions: {
-      async importData({ commit }) {
-         commit('setLoading', true)
-         const result = await bucket.getObjects({
-            query: {
-               type: 'recipes'
-            },
+      getAllRecipes({ commit }) {
+         bucket.getObjects(recipes => {
+            commit('set', recipes)
          })
-         //const json = await result.json()
-         commit('set', result)
-         commit('setLoading', false)
-      }
-   },
-   getters: {
-      recipes(state){
-         return state.list
       }
    }
 }
+
 
 export default createStore({
    plugins: [createLogger()],

@@ -12,7 +12,7 @@
       </router-link>
     </div>
 
-    <div class="container">
+    <div class="container" ref="allRecipes">
       <RecipeCard
         v-for="recipe in recipes"
         :recipe="recipe"
@@ -23,31 +23,31 @@
 </template>
 
 <script>
-import { useStore } from 'vuex'
-import { computed } from 'vue'
+//import { ref, computed} from 'vue'
+import { mapState } from 'vuex'
 import RecipeCard from "../components/RecipeCard";
-
 
 export default {
   name: 'Cookbook',
+ /* props: {
+    recipes: [],
+  },*/
   components: {
     RecipeCard
   },
-  setup() {
-    const { state } = useStore()
-    const isLoading = computed(() => state.cosmic.loading)
-    const recipes = computed(() => state.cosmic.list)
-    //return {recipes, isLoading}
-    console.log(isLoading, recipes)
-  },
-  data() {
+  computed: mapState({
+    recipes: state => state.recipes.all
+    })
+ /* setup(){
+    const allRecipes = ref(null)
+    const store = useStore()
+    const recipes = computed(() => store.state.recipes.all)
+
     return {
-      //
+      allRecipes,
+      recipes
     }
-  },
-  computed: {
-    //
-  }
+  } */
 }
 
 </script>
