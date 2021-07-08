@@ -7,7 +7,7 @@
           color="#5ECC65"
         >
         Add Recipe
-        <v-icon dense right>mdi-plus</v-icon>
+        <v-icon small dense right>mdi-plus</v-icon>
       </v-btn>
       </router-link>
     </div>
@@ -23,31 +23,39 @@
 </template>
 
 <script>
-//import { ref, computed} from 'vue'
-import { mapState } from 'vuex'
-import RecipeCard from "../components/RecipeCard";
 
+import RecipeCard from "../components/RecipeCard";
+import bucket from '@/plugins/cosmic.js'
 export default {
   name: 'Cookbook',
- /* props: {
-    recipes: [],
-  },*/
+  data(){
+    return {
+      loading: false,
+      recipes: [],    
+      }
+  },
   components: {
     RecipeCard
   },
-  computed: mapState({
-    recipes: state => state.recipes.all
-    })
- /* setup(){
-    const allRecipes = ref(null)
-    const store = useStore()
-    const recipes = computed(() => store.state.recipes.all)
-
-    return {
-      allRecipes,
-      recipes
+  async created() {
+    this.fetchData()
+  },
+  methods: {
+    fetchData () {
+      this.error = this.recipe = null
+      this.loading = true
+      bucket.getObjects({
+        query: {
+          type: 'recipes'
+        },
+         props: 'slug,title,content,metadata,id' // Limit the API response data by props
+         }).then(data => {
+        const recipes = data.objects
+        this.loading = false
+        this.recipes = recipes
+      })
     }
-  } */
+  } 
 }
 
 </script>

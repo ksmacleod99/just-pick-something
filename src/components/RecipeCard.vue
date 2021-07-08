@@ -8,7 +8,6 @@
             <p> {{recipe.metadata.course}}</p>
             <p> {{recipe.metadata.meal.value}}</p>
             <p>Servings: {{ recipe.metadata.servings}} </p>
-            <p> {{recipe.id}} </p>
         </v-card>
     
     </router-link>

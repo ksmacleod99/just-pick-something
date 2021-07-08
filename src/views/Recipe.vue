@@ -3,20 +3,20 @@
         <form @submit="onSubmit">
         <div class="masthead">
             <div class="image">
-               <img :src="recipe.metadata.image"/>
+               <!--<img :src="recipe.metadata.image"/>-->
             </div>
             <contenteditable tag="h2" :contenteditable="editing" v-model="recipe.name" v-bind:class="{ editing:editing}"> {{recipe.title}}</contenteditable>
         </div> 
 
-        <div class="meta">
+       <!-- <div class="meta">
             <div class="metabox" >
-                <p>Meal: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.metadata.meal}} </span></p>
-                <p>Meat: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.meta[0].meat}} </span></p>
-                <p>Course: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.meta[0].course}} </span> </p>
+                <p>Meal: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.metadata.meal.value}} </span></p>
+                <p>Meat: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.metadata.meat}} </span></p>
+                <p>Course: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.metadata.course}} </span> </p>
             </div>
             <div class="metabox">
-                <p>Spicy: {{ recipe.meta[0].spicy }}</p>
-                <p>Rating: {{ recipe.meta[0].rating }}</p>
+                <p>Spicy: {{ recipe.metadata.spicy }}</p>
+                <p>Rating: {{ recipe.metadata.rating }}</p>
                 <p>Calories:</p>
             </div>
            <div class="metabox">
@@ -32,7 +32,7 @@
             </v-btn>
                 <p>Add To Plan</p>
            </div>
-        </div>
+        </div> -->
 
         <div class="ingredients">
             <ul>
@@ -50,31 +50,41 @@
 </template>
 
 <script>
-import cosmic from '@/plugins/cosmic'
-import EditButton from "../components/EditButton";
+import bucket from '@/plugins/cosmic.js'
+//import EditButton from "../components/EditButton";
 import contenteditable from 'vue-contenteditable';
 
 export default {
     name: "Recipe",
     components: {
-        EditButton,
+       // EditButton,
         contenteditable
     },
     data() {
         return {
             recipe: Object,
             editing: false,
+            loading: false,
         }
     },
     methods: {
+        getRecipe() {
+           return bucket.getObject({ 
+                id:this.$route.params.id,
+            })/*.then(data => {
+                const recipe = data.objects
+                this.recipe = recipe
+            })*/
+        
+        }
+    },
+        created() {
+        this.recipe = this.getRecipe()
+        console.log(this.recipe.response)
 
-        /*async getRecipe() {
-            let slug = this.$route.params.slug;
-            const res = await fetch(`${slug}`);
-            const recipe = await res.json();
-            return recipe;
-        },
-        startEdit(e) {
+    },
+
+      /*  startEdit(e) {
             e.preventDefault()
             this.editing = !this.editing //makes the elements inside of cntenteditable components editable
             console.log("can edit")
@@ -89,15 +99,7 @@ export default {
                 }
            console.log(updRecipe);
 
-          const res = await fetch(`../api/recipes/${id}`, {
-                method: 'PUT',
-                headers: {
-                'Content-type': 'application/json',
-                },
-                body: JSON.stringify(updRecipe),
-            })
-
-            const data = await res.json()
+                      const data = await res.json()
 
             this.recipe = this.recipe.map((recipe) =>
             recipe.id === id ? { ...recipe, name: data.name } : recipe
@@ -105,10 +107,6 @@ export default {
             ) 
             console.log("edit done")
         } */
-    },
-      async created() {
-        this.recipe = await cosmic.getObject(this.$oute.params.id);
-    }, 
 }
 </script>
 
