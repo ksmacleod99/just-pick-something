@@ -1,22 +1,23 @@
 <template>
     <div class="container">
-        <form @submit="onSubmit">
+     <form @submit="onSubmit">
         <div class="masthead">
             <div class="image">
-               <!--<img :src="recipe.metadata.image"/>-->
+               <img :src=getRecipe.metadata.image.value />
             </div>
-            <contenteditable tag="h2" :contenteditable="editing" v-model="recipe.name" v-bind:class="{ editing:editing}"> {{recipe.title}}</contenteditable>
+            <contenteditable tag="h2" :contenteditable="editing" v-model="recipe.name" v-bind:class="{ editing:editing}"> {{getRecipe.title}}</contenteditable>
         </div> 
 
-       <!-- <div class="meta">
+       <div class="meta">
             <div class="metabox" >
-                <p>Meal: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.metadata.meal.value}} </span></p>
-                <p>Meat: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.metadata.meat}} </span></p>
-                <p>Course: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{recipe.metadata.course}} </span> </p>
+                <p>Meal: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{getRecipe.metadata.meal.value}} </span></p>
+                <p>Meat: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{getRecipe.metadata.meat}} </span></p>
+                <p>Course: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{getRecipe.metadata.course}} </span> </p>
+                <p>Servings: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{getRecipe.metadata.servings}} </span> </p>
             </div>
             <div class="metabox">
-                <p>Spicy: {{ recipe.metadata.spicy }}</p>
-                <p>Rating: {{ recipe.metadata.rating }}</p>
+                <p>Spicy: {{ getRecipe.metadata.spicy.value }}</p>
+                <p>Rating: {{ getRecipe.metadata.rating.value }}</p>
                 <p>Calories:</p>
             </div>
            <div class="metabox">
@@ -32,57 +33,53 @@
             </v-btn>
                 <p>Add To Plan</p>
            </div>
-        </div> -->
+        </div> 
 
         <div class="ingredients">
             <ul>
-                <li v-for="ingredient in recipe.ingredients" :key="ingredient"> {{ ingredient.quantity }} {{ ingredient.name }} </li>
+                <li v-for="ingredient in getRecipe.metadata.ingredients" :key="ingredient"> {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.ingredient }} </li>
             </ul>
         </div>
         <div class="steps">
-            <ol>
-                <li v-for="step in recipe.steps" :key="step"> {{ step }} </li>
-            </ol>
+            {{getRecipe.content}}
         </div>
-        </form>
+        </form> 
     </div>
 
 </template>
 
+
 <script>
-import bucket from '@/plugins/cosmic.js'
 //import EditButton from "../components/EditButton";
-import contenteditable from 'vue-contenteditable';
+//import contenteditable from 'vue-contenteditable';
+import { mapGetters } from 'vuex'
 
 export default {
     name: "Recipe",
     components: {
        // EditButton,
-        contenteditable
+        //contenteditable
     },
+    props: [ 'id' ],
     data() {
         return {
-            recipe: Object,
-            editing: false,
-            loading: false,
+            recipe:{},
         }
     },
-    methods: {
-        getRecipe() {
-           return bucket.getObject({ 
-                id:this.$route.params.id,
-            })/*.then(data => {
-                const recipe = data.objects
-                this.recipe = recipe
-            })*/
-        
-        }
+    created(){
+        this.$store.dispatch('fetchRecipe', {id: this.$route.params.id})     
     },
-        created() {
-        this.recipe = this.getRecipe()
-        console.log(this.recipe.response)
-
-    },
+    computed: {
+    ...mapGetters([
+      'loading',
+      'getRecipe'
+    ]),
+        getRecipe(){
+            return this.$store.getters.getRecipe;
+        },
+       
+    }, 
+  }
 
       /*  startEdit(e) {
             e.preventDefault()
@@ -107,7 +104,7 @@ export default {
             ) 
             console.log("edit done")
         } */
-}
+
 </script>
 
 <style scoped>

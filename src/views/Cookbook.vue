@@ -25,37 +25,28 @@
 <script>
 
 import RecipeCard from "../components/RecipeCard";
-import bucket from '@/plugins/cosmic.js'
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'Cookbook',
   data(){
-    return {
-      loading: false,
-      recipes: [],    
-      }
+   //
   },
   components: {
     RecipeCard
   },
-  async created() {
-    this.fetchData()
+  mounted () {
+    //
   },
-  methods: {
-    fetchData () {
-      this.error = this.recipe = null
-      this.loading = true
-      bucket.getObjects({
-        query: {
-          type: 'recipes'
-        },
-         props: 'slug,title,content,metadata,id' // Limit the API response data by props
-         }).then(data => {
-        const recipes = data.objects
-        this.loading = false
-        this.recipes = recipes
-      })
-    }
-  } 
+  computed: {
+    ...mapGetters([
+      'loading',
+      'recipes',
+    ]),
+    recipes() {
+        return this.$store.getters.recipes
+    },
+  },
 }
 
 </script>

@@ -6,7 +6,7 @@ export default createStore({
    state:{ 
       //Initial State of the app
       drawer: false,
-      currentRecipe: null,
+      currentRecipe: {},
       status:{
          loading: false,
          success: false,
@@ -23,21 +23,35 @@ export default createStore({
 
    getters: {
       menu: state => {return state.menu},
-      getRecipes: state => {return state.recipes},
-      getCurrentRecipe: state => {return state.currentRecipe},
+      recipes: state => {return state.recipes},
+      getRecipe: state => {return state.currentRecipe},
       loading: state => {return state.status.loading}
    },
 
    actions: { //this is where we pull in CosmicJS stuff
-      initCosmic: ({commit}) => {
+      initCosmic: ({commit}) => { //get all recipes
          commit('LOADING')
          return bucket.getObjects().then(data => {
             //set recipes state
-            let recipes = data.objects.filter(obj => {
-               return obj.type === 'recipes'
-            })
+            let recipes = data.objects
             commit('SET_Recipes', recipes)
 
+         //set status to SUCCESS
+         commit('SUCCESS')
+         }).catch(err =>{
+            //status error
+            commit('ERROR', err)
+         })
+      },
+      fetchRecipe: ({commit}, {id}) =>{ //get a single recipe based on id
+         commit('LOADING')
+         return bucket.getObject({
+            id:id
+         }).then(data => {
+            //console.log(data.object.id)
+            let currentRecipe = data.object
+            commit('setRecipe', currentRecipe)
+            
          //set status to SUCCESS
          commit('SUCCESS')
          }).catch(err =>{
@@ -48,7 +62,7 @@ export default createStore({
    },
    mutations: { //change the state in the store
       setDrawer: (state, payload) => { state.drawer = payload },
-      setCurrentRecipe: (state, payload) => {state.currentRecipe = payload},
+      setRecipe: (state, payload) => {state.currentRecipe = payload},
       LOADING: (state) => {
          state.status = {
            loading: true,
@@ -78,6 +92,6 @@ export default createStore({
          }
        },
        SET_Cosmic: (state, payload) => { state.cosmicDB = payload },
-       SET_Recipe: (state, payload) => { state.recipes = payload},
+       SET_Recipes: (state, payload) => { state.recipes = payload},
    }
   });
