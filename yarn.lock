@@ -5805,6 +5805,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+luxon@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-2.0.1.tgz#b41ca2f1f5ad8099c18603ae6c36a7794039daf0"
+  integrity sha512-8Eawf81c9ZlQj62W3eq4mp+C7SAIAnmaS7ZuEAiX503YMcn+0C1JnMQRtfaQj6B5qTZLgHv0F4H5WabBCvi1fw==
+
 magic-string@^0.25.7:
   version "0.25.7"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.7.tgz#3f497d6fd34c669c6798dcb821f2ef31f5445051"
@@ -9089,10 +9094,10 @@ vue@^3.0.0:
     "@vue/runtime-dom" "3.0.11"
     "@vue/shared" "3.0.11"
 
-vuetify@3.0.0-alpha.6:
-  version "3.0.0-alpha.6"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.0.0-alpha.6.tgz#26c7eecd8e1648767fd8284e2d3944e1df41294c"
-  integrity sha512-6JkWZiCS7CdTM2dWc43vgWFvTH4FdJG5cyrjv8NqG+46NmGHvyeWH3DYhne6hQM6rk4vtlN1IdYqVr5ZHFxBng==
+vuetify@^3.0.0-alpha.8:
+  version "3.0.0-alpha.8"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.0.0-alpha.8.tgz#2598aaaa985c41d1f5ab3c965ce6348f01c7505b"
+  integrity sha512-PeD5u0NECeN3KOBm0xItuH2MgeLVIZac9X79LbUhaTAO5T64f/kJztWHC8KUyKVliUESXt6XQDTrPb4GLqTWtQ==
 
 vuex@^4.0.0:
   version "4.0.0"

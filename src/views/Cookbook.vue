@@ -7,7 +7,7 @@
           color="#5ECC65"
         >
         Add Recipe
-        <v-icon small dense right>mdi-plus</v-icon>
+        <v-icon small right>mdi-plus</v-icon>
       </v-btn>
       </router-link>
     </div>

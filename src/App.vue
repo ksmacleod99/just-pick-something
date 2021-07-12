@@ -11,14 +11,16 @@
   app
     >
     <ul class="nav">
-      <li 
-        v-for="(item, i) in menu"
-        :key="i"
-        router
-        exact
-        :to="item.link">
-        {{ item.title }}
+      <router-link to="/"> 
+        <li>
+          Home
         </li>
+      </router-link>
+      <router-link to="cookbook">
+        <li>
+          Cookbook
+        </li>
+      </router-link>
     </ul>
   </v-navigation-drawer>
 
@@ -48,7 +50,6 @@ export default {
   },
    computed: {
     ...mapGetters([
-      'menu',
       'loading'
     ]),
     drawer: {

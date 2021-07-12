@@ -14,11 +14,6 @@ export default createStore({
       },
       recipes: [],
       plans: [],
-      menu: [
-         {title: 'Home', link: '/'},
-         {title: 'Calendar', link: '/'},
-         {title: 'Cookbook', link: '/cookbook'}
-      ]
    },
 
    getters: {

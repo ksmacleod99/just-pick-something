@@ -4,7 +4,7 @@
         color="#5ECC65"
     >
         Edit
-        <v-icon dense right>mdi-pencil</v-icon>
+        <v-icon right>mdi-pencil</v-icon>
     </v-btn>
 </template>
 

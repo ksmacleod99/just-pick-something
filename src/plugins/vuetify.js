@@ -7,7 +7,7 @@ import * as directives from 'vuetify/lib/directives'
 export default createVuetify({
     components,
     directives,
-    /* theme: {
+    theme: {
       dark: false,
       themes: {
         dark: {
@@ -29,6 +29,6 @@ export default createVuetify({
           error: '#FF5252'
         }
       }
-    } */
+    }
   })
 

@@ -3,21 +3,38 @@
      <form @submit="onSubmit">
         <div class="masthead">
             <div class="image">
-               <img :src=getRecipe.metadata.image.value />
+               <img :src="getRecipe.metadata.image.value" />
             </div>
-            <contenteditable tag="h2" :contenteditable="editing" v-model="recipe.name" v-bind:class="{ editing:editing}"> {{getRecipe.title}}</contenteditable>
+            <contenteditable tag="h2" :contenteditable="editing" v-model="recipe.title" v-bind:class="{ editing:editing}"> {{getRecipe.title}}</contenteditable>
         </div> 
 
        <div class="meta">
-            <div class="metabox" >
-                <p>Meal: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{getRecipe.metadata.meal.value}} </span></p>
-                <p>Meat: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{getRecipe.metadata.meat}} </span></p>
-                <p>Course: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{getRecipe.metadata.course}} </span> </p>
-                <p>Servings: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{getRecipe.metadata.servings}} </span> </p>
-            </div>
             <div class="metabox">
-                <p>Spicy: {{ getRecipe.metadata.spicy.value }}</p>
-                <p>Rating: {{ getRecipe.metadata.rating.value }}</p>
+                <div class="chips">
+                    <v-chip 
+                        color="#314E55"
+                        text-color="white"> 
+                            {{getRecipe.metadata.meal.value}} 
+                        </v-chip>
+                    <v-chip color="#314E55" variant="outlined"> {{getRecipe.metadata.meat}} </v-chip> 
+                    <v-chip color="#314E55" variant="outlined">{{getRecipe.metadata.course}}</v-chip> 
+
+                </div>
+                <p>Servings: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{getRecipe.metadata.servings}} </span> </p>
+                <p>Spicy:{{ getRecipe.metadata.spicy.value }} </p>
+                <p>Rating: 
+                    <v-rating
+                        empty-icon="mdi-star-outline"
+                        full-icon="mdi-star"
+                        half-icon="mdi-star-half-full"
+                        v-model="rating"
+                        color="#314E55"
+                        size="20"
+                        hover
+                        length="5">
+                             {{ getRecipe.metadata.rating.value }}
+                    </v-rating>
+                </p>
                 <p>Calories:</p>
             </div>
            <div class="metabox">
@@ -29,36 +46,46 @@
                 v-if="editing"
             >
                 Save
-                <v-icon dense right >mdi-content-save</v-icon>
+                <v-icon right >mdi-content-save</v-icon>
             </v-btn>
                 <p>Add To Plan</p>
            </div>
         </div> 
 
-        <div class="ingredients">
-            <ul>
+        <div>
+            <div class="strike">
+                <span>Ingredients</span>
+            </div>
+            <ul class="ingredients">
                 <li v-for="ingredient in getRecipe.metadata.ingredients" :key="ingredient"> {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.ingredient }} </li>
             </ul>
         </div>
-        <div class="steps">
+        <div>
+            <div class="strike">
+                <span>Steps</span>
+            </div>
             {{getRecipe.content}}
         </div>
         </form> 
     </div>
+    <RecipeForm />
 
 </template>
 
 
 <script>
-//import EditButton from "../components/EditButton";
-//import contenteditable from 'vue-contenteditable';
+import EditButton from "../components/EditButton";
+import RecipeForm from "../components/RecipeForm";
+import contenteditable from 'vue-contenteditable';
 import { mapGetters } from 'vuex'
 
 export default {
     name: "Recipe",
     components: {
-       // EditButton,
-        //contenteditable
+        EditButton,
+        contenteditable,
+        RecipeForm
+
     },
     props: [ 'id' ],
     data() {
@@ -121,10 +148,8 @@ export default {
         width: 100%;
         padding: 1em;
     }
-    .ingredients, .steps {
-        border: 1px lightgray solid;
-        width: 100%;
-        padding: 10px;
+    .ingredients {
+        list-style: none;
     }
     ol, ul{
         width: 100%;
@@ -150,5 +175,39 @@ export default {
     }
     .editing {
         border-bottom: 1px solid #314E55;
+    }
+     .strike {
+        display: block;
+        text-align: center;
+        overflow: hidden;
+        white-space: nowrap; 
+    }
+
+    .strike > span {
+        position: relative;
+        display: inline-block;
+    }
+	
+    .strike > span:before,
+    .strike > span:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        width: 1000px;
+        height: 1px;
+        background: #314E55;
+    }
+
+     .strike > span:before {
+        right: 100%;
+        margin-right: 15px;
+    }
+
+    .strike > span:after {
+        left: 100%;
+        margin-left: 15px;
+    }
+    .chips > * {
+        margin: 5px;
     }
 </style>

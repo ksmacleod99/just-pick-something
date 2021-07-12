@@ -1,5 +1,10 @@
 <template>
   <div class="container">
+    <h2>Today's Plan</h2>
+    <time>{{ today }}</time>
+    <p>Breakfast</p>
+    <p>Lunch</p>
+    <p>Dinner</p>
         <Week
           v-for="plan in plans"
           :plan = "plan"
@@ -13,12 +18,15 @@
 <script>
 
 import Week from "../components/Week";
+import { DateTime } from 'luxon'
+
 
 export default{
     name: 'Home',
     data() {
       return {
-       plans: []
+       plans: [],
+       today: DateTime.local().toFormat('DDDD')
       }
     },
     components: {
@@ -40,7 +48,7 @@ export default{
 
 <style scoped>
 .container {
-  margin: 1em;
+  margin: 2em;
   padding: 1em;
   display: grid;
   grid-gap: 1em;
