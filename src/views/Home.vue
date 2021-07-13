@@ -48,7 +48,7 @@ export default{
 
 <style scoped>
 .container {
-  margin: 2em;
+  margin: 1% 5%;
   padding: 1em;
   display: grid;
   grid-gap: 1em;

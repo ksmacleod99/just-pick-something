@@ -1,13 +1,25 @@
 <template>
     <router-link :to="`/recipes/${recipe.id}`">
         <v-card>
-            <v-card-img>
-                <v-img :src="recipe.metadata.image" />
-            </v-card-img>
-            <v-card-title> {{ recipe.title }} </v-card-title>
-            <p> {{recipe.metadata.course}}</p>
-            <p> {{recipe.metadata.meal.value}}</p>
-            <p>Servings: {{ recipe.metadata.servings}} </p>
+            <v-img :src="recipe.metadata.image.value">
+                <v-card-title> {{ recipe.title }} </v-card-title>
+            </v-img>
+            <div class="chips">
+                <v-chip 
+                    color="#314E55"
+                    variant="outlined"> 
+                        {{recipe.metadata.meal.value}} 
+                    </v-chip>
+                <v-chip color="#314E55" variant="outlined"> {{recipe.metadata.meat}} </v-chip> 
+            </div>
+            <v-card-text>
+                <p>Servings: {{ recipe.metadata.servings}} </p>
+                <p> Calories: </p>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn text color="#5ECC65">Add To Plan</v-btn>
+                <v-btn text color="#314E55">Edit</v-btn>
+            </v-card-actions>
         </v-card>
     
     </router-link>
@@ -41,5 +53,8 @@ export default {
 img {
    max-width: 100%;
 }
+    .chips > * {
+        margin: 5px;
+    }
 </style>
 

@@ -1,15 +1,14 @@
 <template>
-  <div>
+  <div class="cookbook">
     <div class="top">
-      <router-link to="/add_recipe">
-        <v-btn
-          class="ma-2"
-          color="#5ECC65"
-        >
+      <v-btn
+        class="ma-2"
+        color="#5ECC65"
+        @click="openAddForm"
+      >
         Add Recipe
-        <v-icon small right>mdi-plus</v-icon>
+        <v-icon small>mdi-plus</v-icon>
       </v-btn>
-      </router-link>
     </div>
 
     <div class="container" ref="allRecipes">
@@ -20,11 +19,13 @@
       />
     </div>
   </div> 
+  <RecipeForm></RecipeForm>
 </template>
 
 <script>
 
 import RecipeCard from "../components/RecipeCard";
+import RecipeForm from "../components/RecipeForm";
 import { mapGetters } from 'vuex'
 
 export default {
@@ -33,10 +34,8 @@ export default {
    //
   },
   components: {
-    RecipeCard
-  },
-  mounted () {
-    //
+    RecipeCard,
+    RecipeForm
   },
   computed: {
     ...mapGetters([
@@ -47,11 +46,20 @@ export default {
         return this.$store.getters.recipes
     },
   },
+  methods: {
+    openAddForm(){
+       this.$store.dispatch('setRecipeDefault');
+       this.$store.dispatch('setEditForm',true);
+    }
+  }
 }
 
 </script>
 
 <style scoped>
+.cookbook {
+  margin: 1% 5%
+}
 .container {
   display: flex;
   flex-flow: row wrap;

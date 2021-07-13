@@ -1,4 +1,5 @@
 import { createLogger, createStore } from 'vuex'
+import _ from 'lodash'
 import bucket from '@/plugins/cosmic'
 
 export default createStore({
@@ -14,13 +15,18 @@ export default createStore({
       },
       recipes: [],
       plans: [],
+      editForm: false,
+      editing: false
    },
 
    getters: {
       menu: state => {return state.menu},
-      recipes: state => {return state.recipes},
-      getRecipe: state => {return state.currentRecipe},
-      loading: state => {return state.status.loading}
+      recipes: state => {return state.recipes}, //all recipes
+      getRecipe: state => {return state.currentRecipe}, //single recipe
+      loading: state => {return state.status.loading},
+      editForm: state => {return state.editForm}, //add and edit form
+      recipeModel: state => {return state.recipe},
+      editing: state => {return state.editing}
    },
 
    actions: { //this is where we pull in CosmicJS stuff
@@ -45,7 +51,7 @@ export default createStore({
          }).then(data => {
             //console.log(data.object.id)
             let currentRecipe = data.object
-            commit('setRecipe', currentRecipe)
+            commit('SET_RECIPE', currentRecipe)
             
          //set status to SUCCESS
          commit('SUCCESS')
@@ -53,11 +59,76 @@ export default createStore({
             //status error
             commit('ERROR', err)
          })
-      }
+      },
+      addRecipe(context,payload){
+         context.commit('LOADING');
+         Request.addRecipe(payload).then(recipe => {
+             context.commit('ADD_RECIPE',recipe);
+             context.commit('SET_RECIPE_DEFAULT');
+             context.commit('TOGGLE_EDITFORM',false);
+             context.commit('SUCCESS');
+         })
+         .catch(e => {
+             context.commit('ERROR',e);
+         });
+     },
+     editRecipe(context,payload){
+         context.commit('LOADING');
+         Request.editRecipe(payload).then(recipe => {
+             context.commit('EDIT_RECIPE',recipe);
+             context.commit('SET_RECIPE_DEFAULT');
+             context.commit('TOGGLE_EDITTING');
+             context.commit('TOGGLE_EDITFORM',false);
+             context.commit('SUCCESS');
+         })
+         .catch(e => {
+             context.commit('ERROR',e);
+         });
+     },
+     deleteRecipe(context,payload){
+         context.commit('LOADING');
+         Request.deleteRecipe(payload).then((res) => {
+             if(res.status == 200){
+                 context.commit('DELETE_RECIPE',payload);
+                 context.commit('SUCCESS');
+             }
+             else{
+                 context.commit('ERROR',res);
+             }
+         })
+         .then((e) => {
+             context.commit('ERROR',e);
+         });
+     },
+     setEditForm(context,payload){
+      context.commit('TOGGLE_EDITFORM',payload);
+      },
+      addIngrediantInRecipe(context,payload){
+            context.commit('ADD_INGREDIANT_RECIPE',payload);
+      },
+      removeIngrediantInRecipe(context,payload){
+            context.commit('REMOVE_INGREDIANT_RECIPE',payload);
+      },
+      setRecipeImage(context,payload){
+            context.commit('SET_RECIPE_IMAGE',payload);
+      },
+      setRecipeFile(context,payload){
+            context.commit('SET_RECIPE_FILE',payload);
+      },
+      toggleEditting(context){
+            context.commit('TOGGLE_EDITTING');
+      },
+      setRecipeDefault(context){
+         context.commit('SET_RECIPE_DEFAULT');
+     },
    },
    mutations: { //change the state in the store
+      SET_Cosmic: (state, payload) => { state.cosmicDB = payload },
+      SET_Recipes: (state, payload) => { state.recipes = payload},
+      ADD_RECIPE: (state,payload)=> { state.recipes.unshift(payload)},
+      EDIT_RECIPE: (state, payload) => { state.recipes = _.unionBy([payload], state.recipes,'_id')},
       setDrawer: (state, payload) => { state.drawer = payload },
-      setRecipe: (state, payload) => {state.currentRecipe = payload},
+      SET_RECIPE: (state, payload) => {state.currentRecipe = payload},
       LOADING: (state) => {
          state.status = {
            loading: true,
@@ -86,7 +157,34 @@ export default createStore({
            error: false
          }
        },
-       SET_Cosmic: (state, payload) => { state.cosmicDB = payload },
-       SET_Recipes: (state, payload) => { state.recipes = payload},
+       TOGGLE_EDITFORM(state,payload){
+         state.editForm = payload;
+      },
+      ADD_INGREDIANT_RECIPE(state,payload){
+            state.recipe.metadata.ingredients.push({
+               ingredient: payload
+            });
+      },
+      REMOVE_INGREDIANT_RECIPE(state,payload){
+            state.recipe.metadata.ingredients.splice(payload, 1);
+      },
+      SET_RECIPE_IMAGE(state,payload){
+            state.recipe.metadata.feature_image.url = payload;
+      },
+      SET_RECIPE_FILE(state,payload){
+            state.recipe.metadata.feature_image.file = payload;
+      },
+      TOGGLE_EDITTING(state){
+            state.editting = !state.editting;
+      },
+      SET_RECIPE_DEFAULT(state){
+         state.recipe = {
+             metadata:{
+                 feature_image: {
+                 },
+                 ingredients:[]
+             }
+         };
+     },
    }
   });

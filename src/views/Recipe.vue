@@ -2,9 +2,9 @@
     <div class="container">
      <form @submit="onSubmit">
         <div class="masthead">
-            <div class="image">
+           <!-- <div class="image">
                <img :src="getRecipe.metadata.image.value" />
-            </div>
+            </div> -->
             <contenteditable tag="h2" :contenteditable="editing" v-model="recipe.title" v-bind:class="{ editing:editing}"> {{getRecipe.title}}</contenteditable>
         </div> 
 
