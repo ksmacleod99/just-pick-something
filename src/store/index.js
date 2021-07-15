@@ -77,7 +77,7 @@ export default createStore({
          Request.editRecipe(payload).then(recipe => {
              context.commit('EDIT_RECIPE',recipe);
              context.commit('SET_RECIPE_DEFAULT');
-             context.commit('TOGGLE_EDITTING');
+             context.commit('TOGGLE_EDITING');
              context.commit('TOGGLE_EDITFORM',false);
              context.commit('SUCCESS');
          })
@@ -115,8 +115,8 @@ export default createStore({
       setRecipeFile(context,payload){
             context.commit('SET_RECIPE_FILE',payload);
       },
-      toggleEditting(context){
-            context.commit('TOGGLE_EDITTING');
+      toggleEditing(context){
+            context.commit('TOGGLE_EDITING');
       },
       setRecipeDefault(context){
          context.commit('SET_RECIPE_DEFAULT');
@@ -157,7 +157,7 @@ export default createStore({
            error: false
          }
        },
-       TOGGLE_EDITFORM(state,payload){
+      TOGGLE_EDITFORM(state,payload){
          state.editForm = payload;
       },
       ADD_INGREDIANT_RECIPE(state,payload){
@@ -174,8 +174,8 @@ export default createStore({
       SET_RECIPE_FILE(state,payload){
             state.recipe.metadata.feature_image.file = payload;
       },
-      TOGGLE_EDITTING(state){
-            state.editting = !state.editting;
+      TOGGLE_EDITING(state){
+            state.editing = !state.editing;
       },
       SET_RECIPE_DEFAULT(state){
          state.recipe = {

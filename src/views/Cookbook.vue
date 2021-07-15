@@ -41,18 +41,52 @@ export default {
     ...mapGetters([
       'loading',
       'recipes',
+      'editing',
+      'editForm',
+      'recipeModel'
     ]),
-    recipes() {
-        return this.$store.getters.recipes
+
+     success: {
+          get: function(){
+              return this.$store.state.status.success;
+          },
+          set: function(){ //value
+              this.$store.dispatch('clearError');
+          }
+      },
+      error: {
+          get: function(){
+              return this.$store.state.status.error;
+          },
+          set: function(){ //value
+              this.$store.dispatch('clearError');
+          }
+      }, 
+
     },
+  watch: {
+    page: 'getRecipes'
   },
   methods: {
     openAddForm(){
        this.$store.dispatch('setRecipeDefault');
        this.$store.dispatch('setEditForm',true);
-    }
+      console.log("Add form clicked")
+    },
+    openEditForm(recipe){
+      this.$store.dispatch('setRecipe',recipe);
+      this.$store.dispatch('toggleEditing');
+      this.$store.dispatch('setEditForm',true);
+    },
+    deleteRecipe(recipe){
+        this.$store.dispatch('deleteRecipe',recipe);
+    },
+    recipes() {
+        return this.$store.getters.recipes
+    },
   }
 }
+
 
 </script>
 

@@ -5,7 +5,7 @@
            <!-- <div class="image">
                <img :src="getRecipe.metadata.image.value" />
             </div> -->
-            <contenteditable tag="h2" :contenteditable="editing" v-model="recipe.title" v-bind:class="{ editing:editing}"> {{getRecipe.title}}</contenteditable>
+            <h2> {{getRecipe.title}}</h2>
         </div> 
 
        <div class="meta">
@@ -20,7 +20,7 @@
                     <v-chip color="#314E55" variant="outlined">{{getRecipe.metadata.course}}</v-chip> 
 
                 </div>
-                <p>Servings: <span :contenteditable="editing" v-bind:class="{ editing:editing}"> {{getRecipe.metadata.servings}} </span> </p>
+                <p>Servings: {{getRecipe.metadata.servings}} </p>
                 <p>Spicy:{{ getRecipe.metadata.spicy.value }} </p>
                 <p>Rating: 
                     <v-rating
@@ -76,14 +76,12 @@
 <script>
 import EditButton from "../components/EditButton";
 import RecipeForm from "../components/RecipeForm";
-import contenteditable from 'vue-contenteditable';
 import { mapGetters } from 'vuex'
 
 export default {
     name: "Recipe",
     components: {
         EditButton,
-        contenteditable,
         RecipeForm
 
     },
@@ -99,7 +97,11 @@ export default {
     computed: {
     ...mapGetters([
       'loading',
-      'getRecipe'
+      'getRecipe',
+      'editing',
+      'editForm',
+      'recipeModel',
+      'loading'
     ]),
         getRecipe(){
             return this.$store.getters.getRecipe;
@@ -107,30 +109,6 @@ export default {
        
     }, 
   }
-
-      /*  startEdit(e) {
-            e.preventDefault()
-            this.editing = !this.editing //makes the elements inside of cntenteditable components editable
-            console.log("can edit")
-        },
-        async saveEdit(e) {
-            e.preventDefault()
-            this.editing = !this.editing // makes the elements inside of contenteditable components readonly
-            let id = this.$route.params.id;
-            let recipe = this.recipe
-            const updRecipe = {
-                name: recipe.name
-                }
-           console.log(updRecipe);
-
-                      const data = await res.json()
-
-            this.recipe = this.recipe.map((recipe) =>
-            recipe.id === id ? { ...recipe, name: data.name } : recipe
-           // if recipe.id equals the id above, then , else recipe
-            ) 
-            console.log("edit done")
-        } */
 
 </script>
 

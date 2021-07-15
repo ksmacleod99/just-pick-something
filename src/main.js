@@ -13,3 +13,4 @@ app.use(store)
 app.use(Luxon)
 
 app.mount('#app')
+ console.log(app.config)
