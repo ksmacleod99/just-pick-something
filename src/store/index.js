@@ -60,7 +60,7 @@ export default createStore({
             commit('ERROR', err)
          })
       },
-      addRecipe(context,payload){
+      addRecipe(context,payload){ //add a recipe
          context.commit('LOADING');
          Request.addRecipe(payload).then(recipe => {
              context.commit('ADD_RECIPE',recipe);
@@ -72,7 +72,7 @@ export default createStore({
              context.commit('ERROR',e);
          });
      },
-     editRecipe(context,payload){
+     editRecipe(context,payload){ 
          context.commit('LOADING');
          Request.editRecipe(payload).then(recipe => {
              context.commit('EDIT_RECIPE',recipe);

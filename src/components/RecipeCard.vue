@@ -18,7 +18,7 @@
             </v-card-text>
             <v-card-actions>
                 <v-btn text color="#5ECC65">Add To Plan</v-btn>
-                <v-btn text color="#314E55">Edit</v-btn>
+                <v-btn text color="#314E55" @click="getId">Edit</v-btn>
             </v-card-actions>
         </v-card>
     
@@ -32,6 +32,14 @@ export default {
     props: {
         recipe: Object
     },
+    methods: {
+        getId(e){
+            e.preventDefault();
+            const recipe = this.recipe.id;
+            this.$emit('open-edit', recipe)
+        }
+    },
+     
 }
 </script>
 

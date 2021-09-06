@@ -16,6 +16,7 @@
         v-for="recipe in recipes"
         :recipe="recipe"
         :key="recipe.id"
+        @open-edit="openEditForm"
       />
     </div>
   </div> 
@@ -74,9 +75,10 @@ export default {
       console.log("Add form clicked")
     },
     openEditForm(recipe){
-      this.$store.dispatch('setRecipe',recipe);
+      this.$store.dispatch('editRecipe',recipe);
       this.$store.dispatch('toggleEditing');
       this.$store.dispatch('setEditForm',true);
+      console.log("edit clicked");
     },
     deleteRecipe(recipe){
         this.$store.dispatch('deleteRecipe',recipe);
@@ -97,6 +99,7 @@ export default {
 .container {
   display: flex;
   flex-flow: row wrap;
+  justify-content: space-between;
   padding: .25em;
   margin: .25em;
 
