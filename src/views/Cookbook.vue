@@ -9,6 +9,20 @@
         Add Recipe
         <v-icon small>mdi-plus</v-icon>
       </v-btn>
+      <b>Filter: </b>
+      <select id="selectMeal">
+        <option value="">Meal Filter</option>
+      </select>
+      <select id="selectMeat">
+        <option value="">Meat Filter</option>
+      </select>
+      <select id="selectCourse">
+        <option value="">Course Filter</option>
+        </select>
+      <b>Sort:</b>
+      <select id="sort">
+        <option value="">Sort</option>
+      </select>
     </div>
 
     <div class="container" ref="allRecipes">
@@ -107,5 +121,10 @@ export default {
 .top {
   margin: 1em;
   padding: 10px;
+}
+
+select {
+  border: 1px solid green;
+  margin: 15px;
 }
 </style>

@@ -78,7 +78,7 @@ function editRecipe(obj){
                     })
                 }
                 else{
-                    reject(err);
+                    reject(e);
                 }
             })
             .catch((e) => {
@@ -121,7 +121,7 @@ function deleteRecipe(recipe){
                 });
             }
             else{
-                reject(err);
+                reject(e);
             }
         })
         .catch((e) => {

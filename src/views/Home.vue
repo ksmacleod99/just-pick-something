@@ -16,11 +16,8 @@
 </template>
 
 <script>
-
 import Week from "../components/Week";
 import { DateTime } from 'luxon'
-
-
 export default{
     name: 'Home',
     data() {

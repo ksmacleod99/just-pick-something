@@ -1,3 +1,4 @@
+
 <template>
   <v-app>
   <v-app-bar color="#5ECC65">
@@ -37,7 +38,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-
 export default {
   name: 'App',
   data(){
@@ -61,9 +61,7 @@ export default {
       }
     }
   },
-
 }
-
 </script>
 
 <style scoped>
@@ -77,5 +75,4 @@ export default {
   font-weight: bold;
   border-bottom: 1px lightgray solid
 }
-
 </style>
