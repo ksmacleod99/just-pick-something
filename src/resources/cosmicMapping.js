@@ -1,5 +1,6 @@
 import bucket from '../plugins/comsic.js'
 import _ from 'lodash'
+
 function generateRecipeObject(payload,edit=false) {
     let params =  {
         write_key: bucket.write_key,
@@ -11,7 +12,7 @@ function generateRecipeObject(payload,edit=false) {
                 value: payload.metadata.course,
                 key: "course",
                 title: "Course",
-                type: "text",
+                type: "radio-buttons",
                 children: false,
                 has_length_edit: true,
                 parent: false
@@ -21,7 +22,7 @@ function generateRecipeObject(payload,edit=false) {
                 value: payload.metadata.meat,
                 key: "meat",
                 title: "Meat",
-                type: "text",
+                type: "radio-buttons",
                 children: false,
                 has_length_edit: true,
                 parent: false
@@ -31,7 +32,7 @@ function generateRecipeObject(payload,edit=false) {
                 value: payload.metadata.servings,
                 key: "servings",
                 title: "Servings",
-                type: "text",
+                type: "number",
                 children: false,
                 has_length_edit: true,
                 parent: false

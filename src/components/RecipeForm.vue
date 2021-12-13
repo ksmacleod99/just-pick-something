@@ -1,86 +1,90 @@
 <!-- REMOVE PLAIN FORM ELEMENTS AS VUETIFY RELEASES UPDATES-->
 <template>
-  <v-layout justify-center>
-    <v-dialog v-model="editForm" scrollable persistent>
-     
-        <v-card height="50vh" width="50vw" class="scroll">
-        
+<v-layout>
+  <v-dialog v-model="editForm" scrollable persistent max-width="50vw">
+      <v-card style="width: 80vw">         
           <v-card-title>
             <span class="headline">{{ editing ? 'Edit ' : 'Add ' }}Recipe</span>
           </v-card-title>
          
           <v-divider></v-divider>
          
-          <v-card-text style="height: 700px;">
-            <div class="container"> <!--v-container-->
-              <form>
-                  <!-- <v-text-field v-model="recipeModel.title" label="Title" outlined></v-text-field>-->
-                <div class="title divMargin">
-                      <h3>Title</h3>
-                      <input type="text" v-model.trim="recipeModel.title" label="Title">
-                </div>
+          <v-card-text style="height: 400px; overflow: scroll;">
+            <v-form>
+              <v-container>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="8"
+                  >
+                    <v-text-field v-model="recipeModel.title" label="Title" outline></v-text-field>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col
+                    cols="12"
+                    sm="12"
+                    md="6"
+                  >
+                    <p>Meal</p>
+                    <v-radio-group row v-model="recipeModel.metadata.meal">
+                      <v-radio
+                          label="Breakfast"
+                          value="breakfast"
+                      ></v-radio>
+                      <v-radio
+                          label="Lunch"
+                          value="lunch"
+                      ></v-radio>
+                      <v-radio
+                          label="Dinner"
+                          value="dinner"
+                      ></v-radio>
+                      <v-radio
+                          label="Other"
+                          value="other"
+                      ></v-radio> 
+                    </v-radio-group>
+                  </v-col>
+                </v-row>
+            
+                <v-row>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  > 
+                    <v-select v-model="recipeModel.metadata.meat" label="Meat" :meat="meat" outlined></v-select>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="4"
+                  > 
+                  <v-select v-model="recipeModel.metadata.course" label="Course" :course="course" outlined></v-select>
+                  </v-col>
+                </v-row>
 
-                <div class="meal divMargin">
-                  <h3>Meal</h3>
-                  <div class="radio">
-                    <label for="breakfast">Breakfast</label>
-                    <input type="radio" v-model="recipeModel.metadata.meal" id="breakfast" value="breakfast" class="radio">
-                    <label for="lunch">Lunch</label>
-                    <input type="radio" v-model="recipeModel.metadata.meal" id="lunch" value="lunch" class="radio">
-                    <label for="dinner">Dinner</label>
-                    <input type="radio" v-model="recipeModel.metadata.meal" id="dinner" value="dinner" class="radio">
-                    <label for="other">Other</label>
-                    <input type="radio" v-model="recipeModel.metadata.meal" id="other" value="other" class="radio">
-                  </div>
-                      <!-- <v-radio-group v-model="recipeModel.metadata.meal">
-                          <v-radio
-                              label="Breakfast"
-                              value="breakfast"
-                          ></v-radio>
-                          <v-radio
-                              label="Lunch"
-                              value="lunch"
-                          ></v-radio>
-                          <v-radio
-                              label="Dinner"
-                              value="dinner"
-                          ></v-radio>
-                          <v-radio
-                              label="Other"
-                              value="other"
-                          ></v-radio> 
-                          </v-radio-group> -->
 
-                </div>     
+                <v-row>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="6"
+                  > 
+                    <v-text-field v-model="recipeModel.metadata.servings" label="Servings (person)" outlined></v-text-field>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    sm="6"
+                    md="8"
+                  > 
+                    <v-text-field v-model="recipeModel.metadata.found" label="Found http://" outlined></v-text-field>
+                  </v-col>
+                </v-row>
 
-                <div class="wrapper divMargin">
-                  <div>
-                    <!--<v-select v-model="recipeModel.metadata.meat" label="Meat" :meats="meats" outlined></v-select> -->
-                    <h3>Meat:</h3>
-                    <select v-model="recipeModel.metadata.meat" label="Meat" style="width:200px">
-                      <option disabled value="">Please select one</option>
-                      <option v-for="meat in meat" v-bind:key="meat in meat" :value="meat.value"> {{ meat.value }} </option>
-                    </select>
-                  </div>
-                  <div>
-                    <h3>Course:</h3>
-                    <select v-model="recipeModel.metadata.course" label="Course" style="width:200px">
-                      <option disabled value="">Please select one</option>
-                      <option v-for="course in course" v-bind:key="course in course" :value="course.value"> {{ course.value }} </option>
-                    </select>
-                    <!--<v-select v-model="recipeModel.metadata.course" label="Course" :course="course" outlined></v-select>-->
-                  </div>
-                  <div>
-                    <h3>Servings:</h3>
-                    <input v-model.trim="recipeModel.metadata.servings" type="number" style="width:50px" />
-                  <!-- <v-text-field v-model="recipeModel.metadata.servings" label="Servings (person)" outlined></v-text-field>-->
-                  </div>
-                </div>
-
-                <div class="links divMargin">
-                  <h3>Found at:</h3>
-                  <input v-model="recipeModel.metadata.found" type="text" width="300px" />
-                <!-- <v-text-field v-model="recipeModel.metadata.found" label="Found" outlined></v-text-field>
+<!--
                   <v-flex xs12>
                     <img class="upload_image" :src="recipeModel.metadata.feature_image.url.replace(/ /g,'%20')" v-if="!!recipeModel.metadata.feature_image.url" />
                     <form enctype="multipart/form-data" novalidate>
@@ -91,9 +95,9 @@
                         </div>
                       </div>
                     </form>
-                  </v-flex> -->
-                </div>
+                  </v-flex>
 
+-->
                 <div class="steps divMargin">
                   <h3>Steps</h3>
                   <div v-if="editor">
@@ -107,39 +111,40 @@
                   <editor-content :editor="editor" class="editor" v-model="recipeModel.content" label="Steps" />
                 </div>
 
-                <div class="ingredients divMargin">
-                  <div>
-                    <h3 class="ingredients_list_label">Ingredients</h3>
-                  <!-- <ul class="ingredients_list">
-                      <li v-for="(item,index) in recipeModel.metadata.ingredients" :key="index">
-                        {{ingredient.ingredient}} 
-                        <v-btn fab dark small error @click="removeIngredient(index)" class="btn_remove_ingredient">
-                          <v-icon dark>remove</v-icon>
-                        </v-btn>
-                      </li>
-                    </ul> 
-                  
-                    <v-text-field ref="addIngredientRef" label="Ingredient" outlined></v-text-field> -->
-                    <div class="ingredientsList" ref="addIngredientRef">
-                      <label for="quantity">Quantity</label>
-                      <input type="number" id="quantity" style="width:50px"/>
-                      <label for="unit">Unit</label>
-                        <select v-model="recipeModel.metadata.unit" label="unit" style="width:100px">
-                            <option disabled value="">Please select one</option>
-                            <option v-for="unit in unit" v-bind:key="unit in unit" :value="unit.value"> {{ unit.value }} </option>
-                        </select>
-                      <label for="ingredient">Ingredient</label>
-                      <input type="text" id="ingredient" v-model="recipeModel.metadata.ingredients"/>
-                    </div>
+                <div class="divMargin">
+                  <h3>Ingredients*</h3>
+                    <div>
+                      <v-row>
+                        <v-col
+                        cols="12"
+                        sm="3"
+                        md="3"
+                        >
+                          <v-text-field v-model="recipeModel.metadata.ingredients.ingredient" label="Ingredient name" outlined></v-text-field>
+                        </v-col>
 
-                  <v-btn color="#5ECC65" icon="mdi-plus" @click="addIngredient($refs.addIngredientRef)">
-                    Add
-                  </v-btn>
+                        <v-col
+                        cols="12"
+                        sm="1"
+                        md="1"
+                        >
+                          <v-text-field v-model="recipeModel.metadata.ingredients.quantity" label="Amt" outlined></v-text-field>
+                        </v-col>
+
+                        <v-col
+                          cols="12"
+                          sm="2"
+                          md="2"
+                        >
+                          <v-select v-model="recipeModel.metadata.ingredients.unit" label="unit" outlined></v-select>
+                        </v-col>
+                      </v-row>
+                    </div>                   
                 </div>
-                </div>
-              </form>
-            <small>*indicates required field</small>
-          </div>             
+            
+               <small>*indicates required field</small>
+              </v-container>
+            </v-form>
           </v-card-text>
 
           <v-divider></v-divider>
@@ -149,7 +154,7 @@
             <v-btn :loading="loading" :disabled="loading" primary dark @click="saveRecipe(recipeModel)">Save</v-btn>
           </v-card-actions>
 
-        </v-card>
+      </v-card>
     </v-dialog>
   </v-layout>
 </template>
@@ -167,19 +172,8 @@ export default {
   data() {
     return {
       editor: null,
-      meat:[
-        {value: "Chicken"},
-        {value: "Beef"},
-        {value: "Pork"},
-        {value: "Seafood"},
-        {value: "Meatless"}
-      ],
-      course: [
-        { value: "Main" },
-        { value: "Side" },
-        { value: "Vegetable" },
-        { value: "Other" }
-      ],
+      meat:[ "Chicken", "Beef", "Pork", "Seafood", "Meatless"],
+      course: ["Main", "Side", "Vegetable", "Other"],
       unit: [
         {value: "oz"},
         {value: "cup"},
@@ -247,23 +241,6 @@ export default {
 </script>
 
 <style scoped>
-.wrapper {
-  display: flex;
-  justify-content: space-between;
-}
-.radio {
-  margin-right: 15px;
-}
-
-label {
-  margin-right: 2px;
-}
-
-input, textarea, select{
-  border: solid 1px #314E55;
-  border-radius: 2px;
-  padding: 5px;
-}
 
 .editor {
   border: solid 1px #314E55;
@@ -274,7 +251,5 @@ input, textarea, select{
 .divMargin{
   margin-top: 1em;
 }
-.scroll {
-  overflow: scroll;
-}
+
 </style>

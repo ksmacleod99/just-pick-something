@@ -29,6 +29,23 @@ function getRecipes(pagination){
 
 function addRecipe(obj){
     return new Promise((resolve,reject) => {
+        const params = generateRecipeObject(obj);
+        bucket.addObject(bucket, params, (err, res) => {
+            if(!err){
+                resolve(res.object);
+            }
+            else
+            {
+                reject(err);
+            }
+        })
+        .catch((e)=> {
+            reject(e);
+        })
+    });
+}
+
+       /* for images
         addMedia(obj.metadata.feature_image.file).then((media) => {
             obj.metadata.feature_image.url = media.url;
             obj.metadata.feature_image.imgix_url = media.imgix_url;
@@ -44,12 +61,8 @@ function addRecipe(obj){
                     reject(err);
                 }
             });
-        })
-        .catch((e)=> {
-            reject(e);
-        })
-    });
-}
+        }) */
+
 
 function editRecipe(obj){
     const feature_image = _.find(obj.metafields,['key', 'feature_image']);
@@ -129,6 +142,7 @@ function deleteRecipe(recipe){
         });
     });
 }
+
 function addMedia(file){
     const params = {
         media: file,

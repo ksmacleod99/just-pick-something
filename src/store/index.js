@@ -16,7 +16,8 @@ export default createStore({
       recipes: [],
       plans: [],
       editForm: false,
-      editing: false
+      editing: false,
+      newRecipe:{},
    },
 
    getters: {
@@ -25,7 +26,7 @@ export default createStore({
       getRecipe: state => {return state.currentRecipe}, //single recipe
       loading: state => {return state.status.loading},
       editForm: state => {return state.editForm}, //add and edit form
-      recipeModel: state => {return state.recipe},
+      recipeModel: state => {return state.newRecipe}, //new recipe, blank form
       editing: state => {return state.editing}
    },
 
@@ -100,7 +101,7 @@ export default createStore({
              context.commit('ERROR',e);
          });
      },
-     setEditForm(context,payload){
+      setEditForm(context,payload){
       context.commit('TOGGLE_EDITFORM',payload);
       },
       addIngrediantInRecipe(context,payload){

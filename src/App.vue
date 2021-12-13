@@ -2,27 +2,27 @@
 <template>
   <v-app>
   <v-app-bar color="#5ECC65">
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon color="#5ECC65" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-app-bar-title> Just Pick Something </v-app-bar-title>
   </v-app-bar>
   <v-navigation-drawer
-  v-model="drawer"
-  absolute
-  temporary
-  app
-    >
-    <ul class="nav">
+    v-model="drawer"
+    absolute
+    temporary
+    app
+  >
+    <v-list class="nav">
       <router-link to="/"> 
-        <li>
-          Home
-        </li>
+        <v-list-item>
+          <v-list-item-title>Home</v-list-item-title>
+        </v-list-item>
       </router-link>
       <router-link to="cookbook">
-        <li>
-          Cookbook
-        </li>
+        <v-list-item>
+          <v-list-item-title>Cookbook</v-list-item-title>
+        </v-list-item>
       </router-link>
-    </ul>
+    </v-list>
   </v-navigation-drawer>
 
     <v-main relative>

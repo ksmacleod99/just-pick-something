@@ -126,5 +126,6 @@ export default {
 select {
   border: 1px solid green;
   margin: 15px;
+  appearance: menulist;
 }
 </style>
