@@ -66,7 +66,7 @@ function addRecipe(obj){
 
 function editRecipe(obj){
     const feature_image = _.find(obj.metafields,['key', 'feature_image']);
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve,reject,e) => {
         if(obj.metadata.feature_image.file){
             deleteMedia(feature_image.id).then((res) => {
                 if(res.status == 200 ){
@@ -120,7 +120,7 @@ function deleteRecipe(recipe){
         slug: recipe.slug
     }
     const feature_image = _.find(recipe.metafields,['key', 'feature_image']);
-    return new Promise((resolve,reject) => {
+    return new Promise((resolve,reject, e) => {
         deleteMedia(feature_image.id).then((res) => {
             if(res.status == 200 ){
                 bucket.deleteObject(bucket, params, (err, res) => {
